@@ -1,0 +1,6 @@
+[submodule "Source/Libraries/3rdParty/gmock"]
+	path = Source/Libraries/3rdParty/gmock
+	url = https://github.com/geoffviola/googlemock.git
+[submodule "Source/Libraries/3rdParty/gtest"]
+	path = Source/Libraries/3rdParty/gtest
+	url = https://github.com/geoffviola/googletest.git

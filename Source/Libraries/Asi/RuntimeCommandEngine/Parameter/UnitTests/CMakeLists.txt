@@ -1,0 +1,4 @@
+setup_unit_test(ParameterAbstractTests ParameterAbstractTests.cpp)
+setup_unit_test(PercentageTests PercentageTests.cpp)
+setup_unit_test(RangeTests RangeTests.cpp)
+setup_unit_test(SetTests SetTests.cpp)

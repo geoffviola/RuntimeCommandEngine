@@ -1,0 +1,4 @@
+setup_unit_test(CommandWithoutParamsTests CommandWithoutParamsTests.cpp)
+setup_unit_test(CommandWithGenericParamsTests CommandWithGenericParamsTests.cpp)
+setup_unit_test(CommandWithParamsTests CommandWithParamsTests.cpp)
+setup_unit_test(TreeTests TreeTests.cpp)
