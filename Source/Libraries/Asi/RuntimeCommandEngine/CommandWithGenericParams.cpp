@@ -40,7 +40,7 @@ CommandWithGenericParams::EvaluateImpl(std::vector<std::string> const &tokens) c
 	auto const cwp_atis = commandWithoutParams.AreTokensInSignature(candidate_method_name);
 
 	// Check parameter domains
-	size_t last_good_index_p1 = std::get<1>(cwp_atis);
+	uint32_t last_good_index_p1 = std::get<1>(cwp_atis);
 	if (true == std::get<0>(cwp_atis))
 	{
 		bool match = last_good_index_p1 != tokens.size();
@@ -50,7 +50,7 @@ CommandWithGenericParams::EvaluateImpl(std::vector<std::string> const &tokens) c
 			            ->IsInExpectedDomain(tokens[last_good_index_p1]);
 		}
 		std::get<0>(output) = match;
-		std::get<1>(output) = static_cast<int32_t>(last_good_index_p1);
+		std::get<1>(output) = last_good_index_p1;
 		if (match)
 		{
 			commandWithoutParams.CallFun(tokens);

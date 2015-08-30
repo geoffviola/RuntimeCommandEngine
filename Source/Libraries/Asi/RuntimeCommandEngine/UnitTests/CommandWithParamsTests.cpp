@@ -47,7 +47,7 @@ private:
 	bool IsInExpectedDomainImpl(string const &raw_value) const override
 	{
 		return IsInExpectedDomainMock(raw_value);
-	};
+	}
 	string GetExpectedDomainImpl() const override { return GetExpectedDomainMock(); }
 };
 

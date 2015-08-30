@@ -146,7 +146,8 @@ TEST_P(CommandWithGenericParamsTestsCheckSignature, GetSignatureExpectation__imp
 	std::for_each(actual_parameters.begin(), actual_parameters.end(), copy_pointer);
 
 	CallbackTester cbt;
-	CommandWithGenericParams cmd(signature, "", cbt.GetCallback(), &parameters[0], parameters.size());
+	CommandWithGenericParams cmd(signature, "", cbt.GetCallback(), &parameters[0],
+	                             static_cast<int>(parameters.size()));
 
 	for (int i = 0; i < input * 2; ++i)
 	{

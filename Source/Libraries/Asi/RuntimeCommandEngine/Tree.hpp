@@ -41,7 +41,7 @@ private:
 	                         uint32_t const highest_index) const;
 	std::string GetErrorDescription(std::vector<std::string> const &tokens,
 	                                std::vector<CommandInterface *> const &closest_commands,
-	                                int32_t const highest_index, std::string const &item_names_serialized) const;
+	                                uint32_t const highest_index, std::string const &item_names_serialized) const;
 
 	std::vector<CommandInterface *> commands;
 };
