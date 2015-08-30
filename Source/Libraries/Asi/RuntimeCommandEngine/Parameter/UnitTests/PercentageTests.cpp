@@ -1,4 +1,4 @@
-#include "gtest/gtest.h"
+#include "Asi/Wrappers/GTest.hpp"
 #include "gmock/gmock.h"
     
 #include "Asi/RuntimeCommandEngine/Parameter/Percentage.hpp"

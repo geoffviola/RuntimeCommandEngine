@@ -1,6 +1,6 @@
 #include "Asi/RuntimeCommandEngine/CommandWithGenericParams.hpp"
 
-#include "gtest/gtest.h"
+#include "Asi/Wrappers/GTest.hpp"
 #include "gmock/gmock.h"
 #include <memory>
 
@@ -27,7 +27,7 @@ public:
 	{
 	}
 
-	ConcreteParameterAbstract(ConcreteParameterAbstract &other)
+	ConcreteParameterAbstract(ConcreteParameterAbstract const &other)
 	    : ParameterAbstract(other.GetName())
 	{
 	}

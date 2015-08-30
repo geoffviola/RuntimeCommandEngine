@@ -1,4 +1,4 @@
-#include "gtest/gtest.h"
+#include "Asi/Wrappers/GTest.hpp"
 
 #include "Asi/RuntimeCommandEngine/Parameter/Range.hpp"
 

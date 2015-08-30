@@ -1,6 +1,6 @@
 #include "Asi/RuntimeCommandEngine/CommandWithoutParams.hpp"
 
-#include "gtest/gtest.h"
+#include "Asi/Wrappers/GTest.hpp"
 #include "gmock/gmock.h"
 #include <memory>
 

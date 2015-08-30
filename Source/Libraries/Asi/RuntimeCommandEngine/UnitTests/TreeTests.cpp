@@ -1,5 +1,5 @@
+#include "Asi/Wrappers/GTest.hpp"
 #include "gmock/gmock.h"
-#include "gtest/gtest.h"
 
 #include "Asi/RuntimeCommandEngine/Tree.hpp"
 

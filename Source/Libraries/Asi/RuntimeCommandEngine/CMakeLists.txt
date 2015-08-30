@@ -5,6 +5,7 @@ set(ROOT_SOURCES
 	Tree.cpp
 )
 set(ROOT_HEADERS
+	CommandInterface.hpp
 	CommandWithoutParams.hpp
 	CommandWithGenericParams.hpp
 	CommandWithParams.hpp

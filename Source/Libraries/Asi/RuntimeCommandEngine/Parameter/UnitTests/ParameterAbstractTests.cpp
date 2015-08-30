@@ -1,6 +1,6 @@
 #include "Asi/RuntimeCommandEngine/Parameter/ParameterAbstract.hpp"
 
-#include "gtest/gtest.h"
+#include "Asi/Wrappers/GTest.hpp"
 #include "gmock/gmock.h"
 
 namespace asi
