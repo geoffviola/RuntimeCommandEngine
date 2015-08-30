@@ -2,7 +2,7 @@ option(BUILD_UNIT_TESTS "Build and run unit tests" OFF)
 option(BUILD_EXAMPLES "Build example programs" OFF)
 
 #Set MT for gtest
-if(MSVC)
+if (MSVC)
 	set(flags_for_compilers
 		CMAKE_CXX_FLAGS_DEBUG
 		CMAKE_CXX_FLAGS_MINSIZEREL
@@ -24,7 +24,7 @@ if(MSVC)
 endif()
 
 #Set warnings to highest
-if(MSVC)
+if (MSVC)
 	set(flags_for_compilers
 		CMAKE_C_FLAGS
 		CMAKE_CXX_FLAGS
@@ -39,7 +39,7 @@ if(MSVC)
 		string(CONCAT ${flags_for_compiler} " /wd4373") #For gmock
 		string(CONCAT ${flags_for_compiler} " /EHsc") #For gmock
 	endforeach()
-elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+elseif (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	add_definitions("-Wall -Wno-long-long -pedantic")
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	add_definitions("-Weverything -Wno-c++11-extensions -Wno-undef")
@@ -48,8 +48,16 @@ elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	add_definitions("-Wno-weak-vtables -Wno-exit-time-destructors")
 endif()
 
+#Treat warnings as errors
+if (MSVC)
+	add_definitions("/WX")
+elseif (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX OR
+		CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+	add_definitions("-Werror")
+endif()
+
 #Add flags for C++14 features
-if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	add_definitions("-std=gnu++14")
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	add_definitions("-std=c++14")
