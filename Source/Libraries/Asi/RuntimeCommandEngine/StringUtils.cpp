@@ -2,6 +2,8 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <sstream>
+#include <cmath>
+#include <limits>
 
 namespace asi
 {

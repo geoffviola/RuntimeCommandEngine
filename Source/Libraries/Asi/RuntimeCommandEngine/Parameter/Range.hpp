@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include "Asi/RuntimeCommandEngine/StringUtils.hpp"
+#include <typeinfo>
 
 namespace asi
 {
