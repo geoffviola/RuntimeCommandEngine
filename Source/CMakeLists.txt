@@ -42,6 +42,13 @@ elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	add_definitions("-Wall -Wno-long-long -pedantic")
 endif()
 
+#Add flags for C++14 features
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+	add_definitions("-std=gnu++14")
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+	add_definitions("-std=c++14")
+endif()
+
 set(RUNTIMECOMMANDENGINE_3RDPARTY_DIR 
 	"${CMAKE_CURRENT_LIST_DIR}/Libraries/3rdParty")
 function(setup_unit_test test_name test_file)
