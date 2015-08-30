@@ -29,4 +29,4 @@ protected:
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //ASI_RUNTIMECOMMANDENGINE_PARAMETER_PERCENTAGE_HPP
+#endif // ASI_RUNTIMECOMMANDENGINE_PARAMETER_PERCENTAGE_HPP

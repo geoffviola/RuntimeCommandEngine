@@ -3,25 +3,27 @@
 
 #include "ParameterAbstract.hpp"
 
-namespace asi {
-namespace runtimecommandengine {
-namespace parameter {
+namespace asi
+{
+namespace runtimecommandengine
+{
+namespace parameter
+{
 
 class String : public ParameterAbstract
 {
 public:
-	String(std::string const& name);
+	String(std::string const &name);
 	~String();
-	
+
 protected:
 	std::string GetExpectedDomainImpl() const;
-	bool IsInExpectedDomainImpl(std::string const& raw_value) const;
-	char const* GetTypeNameImpl() const;
-
+	bool IsInExpectedDomainImpl(std::string const &raw_value) const;
+	char const *GetTypeNameImpl() const;
 };
 
 } // namespace parameter
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //ASI_RUNTIMECOMMANDENGINE_STRING_HPP
+#endif // ASI_RUNTIMECOMMANDENGINE_STRING_HPP

@@ -1,6 +1,6 @@
 #include "Asi/Wrappers/GTest.hpp"
 #include "gmock/gmock.h"
-    
+
 #include "Asi/RuntimeCommandEngine/Parameter/Percentage.hpp"
 
 using asi::runtimecommandengine::parameter::Range;

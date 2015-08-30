@@ -1,6 +1,4 @@
 #include "StringUtils.hpp"
-#define _USE_MATH_DEFINES
-#include <math.h>
 #include <sstream>
 #include <cmath>
 #include <limits>
@@ -12,6 +10,8 @@ namespace asi
 {
 namespace runtimecommandengine
 {
+
+static const double pi = 3.14159265358979323846;
 
 bool iequals(std::string const &s1, std::string const &s2)
 {
@@ -26,7 +26,7 @@ std::string replaceSubstringWithSubstring(std::string const &base, std::string c
 {
 	std::string output(base);
 
-	for (size_t index = output.find(replacee, index); std::string::npos != index;)
+	for (size_t index = output.find(replacee, 0U); std::string::npos != index;)
 	{
 		/* Make the replacement. */
 		output.replace(index, replacee.size(), replacer);
@@ -43,12 +43,12 @@ std::string prettyPrint(double const value)
 {
 	std::stringstream ss;
 	ss.precision(1);
-	if ((0.00001 < value || -0.00001 > value) && fmod(4 * (fabs(value) / M_PI), 1.0) < 0.00000001)
+	if ((0.00001 < value || -0.00001 > value) && fmod(4 * (fabs(value) / pi), 1.0) < 0.00000001)
 	{
 		ss << std::fixed;
-		if (fabs(fabs(value) - M_PI) > 0.00000001)
+		if (fabs(fabs(value) - pi) > 0.00000001)
 		{
-			ss << (value) / M_PI << "*";
+			ss << (value) / pi << "*";
 		}
 		else if (value < 0)
 		{

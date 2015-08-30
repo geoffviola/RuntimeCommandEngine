@@ -8,7 +8,7 @@ namespace asi
 namespace runtimecommandengine
 {
 
-Tree::Tree(std::vector<CommandInterface*> const &in_commands)
+Tree::Tree(std::vector<CommandInterface *> const &in_commands)
     : commands(in_commands)
 {
 }
@@ -47,9 +47,9 @@ void Tree::PrependCmdSign(std::vector<std::string> const &signature, std::string
 std::tuple<bool, std::string> Tree::Evaluate(std::vector<std::string> const &tokens) const
 {
 	std::tuple<bool, std::string> output(false, "");
-	std::vector<CommandInterface*> closest_commands;
-	int32_t highest_index = 0;
-	for (uint32_t i = 0; i < commands.size(); i++)
+	std::vector<CommandInterface *> closest_commands;
+	uint32_t highest_index = 0U;
+	for (uint32_t i = 0U; i < commands.size(); ++i)
 	{
 		std::tuple<bool, uint32_t, std::string> command_return = commands[i]->Evaluate(tokens);
 		if (std::get<0>(command_return))
@@ -58,7 +58,7 @@ std::tuple<bool, std::string> Tree::Evaluate(std::vector<std::string> const &tok
 		}
 		else
 		{
-			int32_t const command_index = std::get<1>(command_return);
+			uint32_t const command_index = std::get<1>(command_return);
 			if (command_index > highest_index)
 			{
 				closest_commands.clear();
@@ -93,8 +93,9 @@ std::string Tree::GetHelp() const
 	return output;
 }
 
-std::string Tree::HandleErrors(std::vector<std::string> const &tokens, std::vector<CommandInterface*> const &closest_commands,
-                               int32_t const highest_index) const
+std::string Tree::HandleErrors(std::vector<std::string> const &tokens,
+                               std::vector<CommandInterface *> const &closest_commands,
+                               uint32_t const highest_index) const
 {
 	std::vector<std::string> item_names;
 	std::string item_names_serialized;
@@ -126,8 +127,8 @@ std::string Tree::HandleErrors(std::vector<std::string> const &tokens, std::vect
 }
 
 std::string Tree::GetErrorDescription(std::vector<std::string> const &tokens,
-                                      std::vector<CommandInterface*> const &closest_commands, int32_t const highest_index,
-                                      std::string const &item_names_serialized) const
+                                      std::vector<CommandInterface *> const &closest_commands,
+                                      int32_t const highest_index, std::string const &item_names_serialized) const
 {
 	std::string output;
 	if (0 == closest_commands.size())

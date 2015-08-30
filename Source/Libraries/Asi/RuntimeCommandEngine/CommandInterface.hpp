@@ -14,6 +14,7 @@ namespace runtimecommandengine
 class CommandInterface
 {
 public:
+	CommandInterface(CommandInterface const &) = default;
 	virtual ~CommandInterface() {}
 
 	/**
@@ -25,22 +26,10 @@ public:
 	{
 		return this->EvaluateImpl(tokens);
 	}
-	inline std::vector<std::string> GetMethodName() const
-	{
-		return this->GetMethodNameImpl();
-	}
-	inline std::string GetHelp() const
-	{
-		return this->GetHelpImpl();
-	}
-	inline size_t GetSignatureLength() const
-	{
-		return this->GetSignatureLengthImpl();
-	}
-	inline void PrependSignature(std::string const &pre_sig)
-	{
-		this->PrependSignatureImpl(pre_sig);
-	}
+	inline std::vector<std::string> GetMethodName() const { return this->GetMethodNameImpl(); }
+	inline std::string GetHelp() const { return this->GetHelpImpl(); }
+	inline size_t GetSignatureLength() const { return this->GetSignatureLengthImpl(); }
+	inline void PrependSignature(std::string const &pre_sig) { this->PrependSignatureImpl(pre_sig); }
 	/// Get the method name or parameter name based on a common index
 	inline std::vector<std::string> GetSignatureExpectation(size_t const index) const
 	{
@@ -48,6 +37,8 @@ public:
 	}
 
 protected:
+	CommandInterface() {}
+
 	virtual std::tuple<bool, uint32_t, std::string> EvaluateImpl(std::vector<std::string> const &tokens) const = 0;
 	virtual std::vector<std::string> GetMethodNameImpl() const = 0;
 	virtual std::string GetHelpImpl() const = 0;
@@ -74,4 +65,4 @@ protected:
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //ASI_RUNTIMECOMMANDENGINE_COMMANDINTERFACE_HPP
+#endif // ASI_RUNTIMECOMMANDENGINE_COMMANDINTERFACE_HPP

@@ -9,8 +9,10 @@
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
 #pragma clang diagnostic ignored "-Wshift-sign-overflow"
 #pragma clang diagnostic ignored "-Wsign-conversion"
+#pragma clang diagnostic ignored "-Wglobal-constructors"
+#pragma clang diagnostic ignored "-Wmissing-prototypes"
 #endif
 
 #include "gtest/gtest.h"
 
-#endif //ASI_GTEST_HPP
+#endif // ASI_GTEST_HPP

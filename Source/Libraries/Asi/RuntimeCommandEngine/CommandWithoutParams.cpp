@@ -22,9 +22,8 @@ std::tuple<bool, uint32_t> CommandWithoutParams::AreTokensInSignature(std::vecto
 	for (; i < tokens.size() && i < methodNameTokens.size() && iequals(tokens[i], methodNameTokens[i]); ++i)
 	{
 	}
-	return std::tuple <bool, uint32_t>(methodNameTokens.size() == i && tokens.size() == i, i);
+	return std::tuple<bool, uint32_t>(methodNameTokens.size() == i && tokens.size() == i, i);
 }
-
 
 std::tuple<bool, uint32_t, std::string> CommandWithoutParams::EvaluateImpl(std::vector<std::string> const &tokens) const
 {

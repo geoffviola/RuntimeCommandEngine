@@ -16,13 +16,13 @@ namespace parameter
 class ParameterAbstract
 {
 public:
+	ParameterAbstract(ParameterAbstract const &) = default;
 	explicit ParameterAbstract(std::string const &in_name)
 	    : name(in_name)
 	{
 	}
 	virtual ~ParameterAbstract() {}
 
-	ParameterAbstract(ParameterAbstract const&) = default;
 	/// Get a string describing the expected input string value
 	std::string GetExpectedDomain() const { return GetExpectedDomainImpl(); }
 	/// Get a vector of strings describing the expected input string value
@@ -62,4 +62,4 @@ private:
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //ASI_RUNTIMECOMMANDENGINE_PARAMETERASTRACT_HPP
+#endif // ASI_RUNTIMECOMMANDENGINE_PARAMETERASTRACT_HPP

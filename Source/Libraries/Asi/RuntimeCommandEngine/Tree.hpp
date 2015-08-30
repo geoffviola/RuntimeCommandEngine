@@ -38,7 +38,7 @@ private:
 	/// @return Error description
 	std::string HandleErrors(std::vector<std::string> const &tokens,
 	                         std::vector<CommandInterface *> const &closest_commands,
-	                         int32_t const highest_index) const;
+	                         uint32_t const highest_index) const;
 	std::string GetErrorDescription(std::vector<std::string> const &tokens,
 	                                std::vector<CommandInterface *> const &closest_commands,
 	                                int32_t const highest_index, std::string const &item_names_serialized) const;
@@ -49,4 +49,4 @@ private:
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //ASI_RUNTIMECOMMANDENGINE_TREE_HPP
+#endif // ASI_RUNTIMECOMMANDENGINE_TREE_HPP

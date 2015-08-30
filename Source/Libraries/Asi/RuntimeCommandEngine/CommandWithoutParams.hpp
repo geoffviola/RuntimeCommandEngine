@@ -17,11 +17,11 @@ public:
 	typedef std::function<void(std::vector<std::string> const &)> CallFunType;
 
 	CommandWithoutParams(std::vector<std::string> const &in_signature, std::string const &in_description,
-	               CallFunType call_fun);
-	
+	                     CallFunType call_fun);
+
 	/**
-		@return bool are the tokens in the signature
-		        uint32_t the index that was matched to
+	        @return bool are the tokens in the signature
+	                uint32_t the index that was matched to
 	*/
 	std::tuple<bool, uint32_t> AreTokensInSignature(std::vector<std::string> tokens) const;
 	inline void CallFun(std::vector<std::string> const &tokens) const { callFun(tokens); }
@@ -44,4 +44,4 @@ private:
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //ASI_RUNTIMECOMMANDENGINE_COMMANDWITHOUTPARAMS_HPP
+#endif // ASI_RUNTIMECOMMANDENGINE_COMMANDWITHOUTPARAMS_HPP

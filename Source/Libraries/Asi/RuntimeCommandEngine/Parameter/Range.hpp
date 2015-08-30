@@ -17,11 +17,13 @@ namespace parameter
 /**
         Defines a range with exclusive parameter ranges
 */
-template <class T> class Range : public ParameterAbstract
+template <class T>
+class Range : public ParameterAbstract
 {
 public:
 	typedef T ReturnType;
 
+	Range(Range const &) = default;
 	Range(std::string const &name, T const in_min, T const in_max)
 	    : ParameterAbstract(name)
 	    , min(in_min)
@@ -29,7 +31,7 @@ public:
 	{
 	}
 
-	T GetValue(std::string const& raw_value) const { return getStringAs<T>(raw_value); }
+	T GetValue(std::string const &raw_value) const { return getStringAs<T>(raw_value); }
 
 	T GetMin() const { return min; }
 	T GetMax() const { return max; }
@@ -77,4 +79,4 @@ private:
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //ASI_RUNTIMECOMMANDENGINE_PARAMETER_RANGE_HPP
+#endif // ASI_RUNTIMECOMMANDENGINE_PARAMETER_RANGE_HPP

@@ -13,7 +13,7 @@ class ParameterAbstractConcrete : public ParameterAbstract
 {
 public:
 	ParameterAbstractConcrete(std::string const &in_name)
-		: ParameterAbstract(in_name)
+	    : ParameterAbstract(in_name)
 	{
 	}
 	~ParameterAbstractConcrete() {}

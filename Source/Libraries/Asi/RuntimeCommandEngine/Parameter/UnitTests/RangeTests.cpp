@@ -70,7 +70,7 @@ TEST(RangeTests, GetValue_0_0)
 
 	auto value_result = range.GetValue("0");
 
-	EXPECT_EQ(-1, get_min_result);
-	EXPECT_EQ(1, get_max_result);
-	EXPECT_EQ(0, value_result);
+	EXPECT_DOUBLE_EQ(-1.0, get_min_result);
+	EXPECT_DOUBLE_EQ(1.0, get_max_result);
+	EXPECT_DOUBLE_EQ(0.0, value_result);
 }

@@ -41,7 +41,7 @@ private:
 	bool IsInExpectedDomainImpl(string const &raw_value) const override
 	{
 		return IsInExpectedDomainMock(raw_value);
-	};
+	}
 	string GetExpectedDomainImpl() const override { return GetExpectedDomainMock(); }
 };
 
@@ -49,8 +49,8 @@ TEST(CommandWithGenericParamsTests, Evaluate_1ParamNoTokens_FalseUDUD)
 {
 	CallbackTester cbt;
 	ConcreteParameterAbstract param;
-	static ParameterAbstract const* const param_arr[] = { &param };
-	CommandWithGenericParams cmd({ "sig1" }, "description", cbt.GetCallback(), param_arr, sizeof(param_arr));
+	static ParameterAbstract const *const param_arr[] = {&param};
+	CommandWithGenericParams cmd({"sig1"}, "description", cbt.GetCallback(), param_arr, sizeof(param_arr));
 	vector<string> input_tokens;
 
 	auto const return_val = cmd.Evaluate(input_tokens);
@@ -63,8 +63,8 @@ TEST(CommandWithGenericParamsTests, Evaluate_1ParamWrongToken_FalseUDUD)
 {
 	CallbackTester cbt;
 	ConcreteParameterAbstract param;
-	static ParameterAbstract const* const param_arr[] = { &param };
-	CommandWithGenericParams cmd({ "sig1" }, "description", cbt.GetCallback(), param_arr, sizeof(param_arr));
+	static ParameterAbstract const *const param_arr[] = {&param};
+	CommandWithGenericParams cmd({"sig1"}, "description", cbt.GetCallback(), param_arr, sizeof(param_arr));
 	vector<string> input_tokens;
 	input_tokens.push_back("wrong_token");
 
@@ -80,15 +80,14 @@ TEST(CommandWithGenericParamsTests, Evaluate_1ParamRightToken_CallbackCalledTrue
 	static string const param_name("param1");
 	CallbackTester cbt;
 	ConcreteParameterAbstract param;
-	static ParameterAbstract const* const param_arr[] = { &param };
-	CommandWithGenericParams cmd({ method_name }, "description", cbt.GetCallback(), param_arr, 1);
+	static ParameterAbstract const *const param_arr[] = {&param};
+	CommandWithGenericParams cmd({method_name}, "description", cbt.GetCallback(), param_arr, 1);
 	vector<string> input_tokens;
 	input_tokens.push_back(method_name);
 	input_tokens.push_back(param_name);
 	CallbackTester ct;
 
-	EXPECT_CALL(param, IsInExpectedDomainMock(param_name))
-		.WillOnce(Return(true));
+	EXPECT_CALL(param, IsInExpectedDomainMock(param_name)).WillOnce(Return(true));
 
 	auto const return_val = cmd.Evaluate(input_tokens);
 
@@ -106,7 +105,7 @@ TEST(CommandWithGenericParamsTests, ConstructorWithVector_2Names_SignatureRetrie
 	method_names.push_back("b");
 	CallbackTester cbt;
 	ConcreteParameterAbstract param;
-	static ParameterAbstract const* const param_arr[] = { &param };
+	static ParameterAbstract const *const param_arr[] = {&param};
 	CommandWithGenericParams cmd(method_names, "description", cbt.GetCallback(), param_arr, sizeof(param_arr));
 
 	string result0 = cmd.GetSignatureExpectation(0)[0];
@@ -140,8 +139,7 @@ TEST_P(CommandWithGenericParamsTestsCheckSignature, GetSignatureExpectation__imp
 	}
 	auto const copy_pointer = [&parameters](ConcreteParameterAbstract &iter)
 	{
-		EXPECT_CALL(iter, GetExpectedDomainMock())
-			.WillOnce(Return(iter.GetName()));
+		EXPECT_CALL(iter, GetExpectedDomainMock()).WillOnce(Return(iter.GetName()));
 		parameters.push_back(&iter);
 	};
 	parameters.reserve(actual_parameters.size());
@@ -167,5 +165,5 @@ TEST_P(CommandWithGenericParamsTestsCheckSignature, GetSignatureExpectation__imp
 	EXPECT_EQ(false, cbt.WasCallbackCalled());
 }
 
-INSTANTIATE_TEST_CASE_P(CommandWithGenericParamsTests_ConstructorAddParametersGetSignatureExpectation, CommandWithGenericParamsTestsCheckSignature,
-                        ::testing::Range(1, 5));
+INSTANTIATE_TEST_CASE_P(CommandWithGenericParamsTests_ConstructorAddParametersGetSignatureExpectation,
+                        CommandWithGenericParamsTestsCheckSignature, ::testing::Range(1, 5));

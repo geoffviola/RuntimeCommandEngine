@@ -19,8 +19,8 @@ public:
 	typedef std::function<void(std::vector<std::string> const &)> CallFunType;
 
 	CommandWithGenericParams(std::vector<std::string> const &signature, std::string const &description,
-	               CallFunType call_fun, parameter::ParameterAbstract const *const * in_parameters,
-	               int num_params);
+	                         CallFunType call_fun, parameter::ParameterAbstract const *const *in_parameters,
+	                         int num_params);
 
 private:
 	std::tuple<bool, uint32_t, std::string> EvaluateImpl(std::vector<std::string> const &tokens) const override;
@@ -31,10 +31,10 @@ private:
 	std::string GetHelpImpl() const override;
 
 	CommandWithoutParams commandWithoutParams;
-	std::vector<parameter::ParameterAbstract const*> genericParameters;
+	std::vector<parameter::ParameterAbstract const *> genericParameters;
 };
 
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //ASI_RUNTIMECOMMANDENGINE_COMMANDWITHGENERICPARAMS_HPP
+#endif // ASI_RUNTIMECOMMANDENGINE_COMMANDWITHGENERICPARAMS_HPP

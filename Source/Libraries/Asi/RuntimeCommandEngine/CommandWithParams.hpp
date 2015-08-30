@@ -30,7 +30,7 @@ public:
 
 private:
 	template <std::size_t... Indices>
-	static auto TupleToPointerArray(std::tuple<ParamTypes...> *const t, std::index_sequence<Indices...> indices)
+	static auto TupleToPointerArray(std::tuple<ParamTypes...> *const t, std::index_sequence<Indices...>)
 	{
 		return std::array<parameter::ParameterAbstract *, sizeof...(ParamTypes)>{
 		    {static_cast<parameter::ParameterAbstract *>(&std::get<Indices>(*t))...}};
@@ -54,7 +54,7 @@ private:
 	}
 
 	template <std::size_t... I>
-	inline void CallFunctionHelper(std::vector<std::string> tokens, std::index_sequence<I...> args) const
+	inline void CallFunctionHelper(std::vector<std::string> tokens, std::index_sequence<I...>) const
 	{
 		callbackFunction(std::get<I>(typedParameters).GetValue(tokens[I])...);
 	}

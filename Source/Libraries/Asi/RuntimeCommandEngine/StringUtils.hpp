@@ -22,7 +22,8 @@ std::string replaceSubstringWithSubstring(std::string const &base, std::string c
 std::string prettyPrint(double value);
 
 /// @return the best conversion std::stringstream can do
-template <class T> inline T getStringAs(std::string const &input)
+template <class T>
+inline T getStringAs(std::string const &input)
 {
 	T output;
 	std::stringstream ss(input);
@@ -35,12 +36,18 @@ bool isInteger(std::string const &s);
 
 bool isDouble(std::string const &s);
 
-template <class T> inline bool isStringOfType(std::string const &)
+template <class T>
+inline bool isStringOfType(std::string const &)
 {
 	throw "isStringIsOfType: unimplemented";
 }
-template <> inline bool isStringOfType<std::string>(std::string const &) { return true; }
-template <> inline bool isStringOfType<uint16_t>(std::string const &input)
+template <>
+inline bool isStringOfType<std::string>(std::string const &)
+{
+	return true;
+}
+template <>
+inline bool isStringOfType<uint16_t>(std::string const &input)
 {
 	bool output = isInteger(input);
 	if (output)
@@ -59,7 +66,8 @@ template <> inline bool isStringOfType<uint16_t>(std::string const &input)
 	}
 	return output;
 }
-template <> inline bool isStringOfType<int32_t>(std::string const &input)
+template <>
+inline bool isStringOfType<int32_t>(std::string const &input)
 {
 	bool output = isInteger(input);
 	if (output)
@@ -80,9 +88,13 @@ template <> inline bool isStringOfType<int32_t>(std::string const &input)
 	return output;
 }
 
-template <> inline bool isStringOfType<double>(std::string const &input) { return isDouble(input); }
+template <>
+inline bool isStringOfType<double>(std::string const &input)
+{
+	return isDouble(input);
+}
 
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //ASI_RUNTIMECOMMANDENGINE_STRINGUTILS_HPP
+#endif // ASI_RUNTIMECOMMANDENGINE_STRINGUTILS_HPP

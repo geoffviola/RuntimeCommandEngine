@@ -32,4 +32,4 @@ private:
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //ASI_RUNTIMECOMMANDENGINE_UNION_HPP
+#endif // ASI_RUNTIMECOMMANDENGINE_UNION_HPP

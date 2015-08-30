@@ -5,7 +5,7 @@
 #include "CommandWithParams.hpp"
 
 /**
-        @file use these functions to more easily make commands
+        file use these functions to more easily make commands
 */
 
 namespace asi
@@ -13,7 +13,7 @@ namespace asi
 namespace runtimecommandengine
 {
 
- static inline CommandWithoutParams MakeCommand(std::vector<std::string> const &in_signature,
+static inline CommandWithoutParams MakeCommand(std::vector<std::string> const &in_signature,
                                                std::string const &in_description,
                                                CommandWithGenericParams::CallFunType call_fun)
 {
@@ -32,4 +32,4 @@ MakeCommand(std::vector<std::string> const &in_signature, std::string const &in_
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //ASI_RUNTIMECOMMANDENGINE_MAKECOMMAND_HPP
+#endif // ASI_RUNTIMECOMMANDENGINE_MAKECOMMAND_HPP
