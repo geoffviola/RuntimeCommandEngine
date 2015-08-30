@@ -43,7 +43,7 @@ elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	add_definitions("-Wall -Wno-long-long -pedantic")
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 	add_definitions("-Weverything -Wno-c++11-extensions -Wno-undef")
-	add_definitions("-Wno-padded")
+	add_definitions("-Wno-c++98-compat -Wc++98-compat-pedantic -Wno-padded")
 endif()
 
 #Add flags for C++14 features

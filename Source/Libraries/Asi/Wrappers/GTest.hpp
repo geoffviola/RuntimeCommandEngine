@@ -3,9 +3,10 @@
 
 #ifdef __GNUC__
 #pragma GCC diagnostic ignored "-Wconversion-null"
-#elseif __clang__
+#elif __clang__
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wused-but-marked-unused"
+#pragma clang diagnostic ignored "-Wdeprecated"
 #endif
 
 #include "gtest/gtest.h"
