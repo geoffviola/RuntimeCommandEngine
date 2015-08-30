@@ -57,7 +57,8 @@ TEST(RangeTests, GetTypeName_double_RangeDouble)
 
 	auto const get_type_name_result = range.GetTypeName();
 
-	EXPECT_STREQ("Range<double>", get_type_name_result);
+	EXPECT_STREQ((std::string("Range<") + std::string(typeid(double).name()) + std::string(">")).c_str(),
+	             get_type_name_result);
 }
 
 TEST(RangeTests, GetValue_0_0)

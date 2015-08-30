@@ -20,6 +20,6 @@ addons:
 script:
 - ./cmake-3.3.0-rc4-Linux-x86_64/bin/cmake . -DBUILD_UNIT_TESTS=ON -DBUILD_EXAMPLES=ON
 - make -j5
-- ./cmake-3.3.0-rc4-Linux-x86_64/bin/ctest .
+- ./cmake-3.3.0-rc4-Linux-x86_64/bin/ctest . --output-on-failure
 os:
 - linux

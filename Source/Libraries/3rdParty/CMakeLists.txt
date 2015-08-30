@@ -1,4 +1,8 @@
 if (BUILD_UNIT_TESTS)
+	if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX OR 
+			CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+		add_definitions("-w")
+	endif ()
 	add_subdirectory(gmock)
 	set_target_properties(gmock PROPERTIES FOLDER "3rdParty")
 	set_target_properties(gmock_main PROPERTIES FOLDER "3rdParty")
