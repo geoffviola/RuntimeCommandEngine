@@ -1,7 +1,7 @@
 #ifndef ASI_GTEST_HPP
 #define ASI_GTEST_HPP
 
-#ifdef __GNUC__
+#if defined(__GNUC__) && !defined(__clang__)
 #pragma GCC diagnostic ignored "-Wconversion-null"
 #elif defined(__clang__)
 #pragma message "clang is detected"
