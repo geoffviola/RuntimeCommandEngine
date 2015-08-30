@@ -15,7 +15,8 @@ addons:
     packages:
     - gcc-5
     - g++-5
-    - llvm-toolchain-3.6
+    - clang-3.6
+    - clang++-3.6
 script:
 - ./cmake-3.3.0-rc4-Linux-x86_64/bin/cmake .
 - make -j5

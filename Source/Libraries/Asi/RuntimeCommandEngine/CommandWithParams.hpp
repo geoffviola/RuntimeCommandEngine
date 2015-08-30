@@ -20,8 +20,7 @@ public:
 	                  CallFunType const &callback, ParamTypes const &... typed_parameter)
 	    : callbackFunction(callback)
 	    , typedParameters(typed_parameter...)
-	    , genericParameters(TupleToPointerArray(std::forward<std::tuple<ParamTypes...> >(typedParameters),
-	                                            std::make_index_sequence<sizeof...(ParamTypes)>{}))
+	    , genericParameters(TupleToPointerArray(&typedParameters, std::make_index_sequence<sizeof...(ParamTypes)>{}))
 	    , cmdGenericParams(in_signature, in_description,
 	                       std::bind(&CommandWithParams<ParamTypes...>::CallFunction, this, std::placeholders::_1),
 	                       &genericParameters[0], sizeof...(ParamTypes))
@@ -30,11 +29,10 @@ public:
 
 private:
 	template <std::size_t... Indices>
-	static auto TupleToPointerArray(std::tuple<ParamTypes...> &&t, std::index_sequence<Indices...> indices)
+	static auto TupleToPointerArray(std::tuple<ParamTypes...> *const t, std::index_sequence<Indices...> indices)
 	{
 		return std::array<parameter::ParameterAbstract *, sizeof...(ParamTypes)>{
-		    static_cast<parameter::ParameterAbstract *>(
-		        &std::get<Indices>(std::forward<std::tuple<ParamTypes...> >(t)))...};
+		    static_cast<parameter::ParameterAbstract *>(&std::get<Indices>(*t))...};
 	}
 
 	inline std::tuple<bool, uint32_t, std::string>
