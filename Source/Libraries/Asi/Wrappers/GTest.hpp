@@ -4,16 +4,13 @@
 #if defined(__GNUC__) && !defined(__clang__)
 #pragma GCC diagnostic ignored "-Wconversion-null"
 #elif defined(__clang__)
-#pragma message "clang is detected"
-#pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wused-but-marked-unused"
 #pragma clang diagnostic ignored "-Wdeprecated"
+#pragma clang diagnostic ignored "-Wmissing-noreturn"
+#pragma clang diagnostic ignored "-Wshift-sign-overflow"
+#pragma clang diagnostic ignored "-Wsign-conversion"
 #endif
 
 #include "gtest/gtest.h"
-
-#if __clang__
-#pragma clang diagnostic pop
-#endif
 
 #endif //ASI_GTEST_HPP
