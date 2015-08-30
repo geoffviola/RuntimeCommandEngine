@@ -1,5 +1,5 @@
-#ifndef _ASI_RUNTIMECOMMANDENGINE_STRING_HPP_
-#define _ASI_RUNTIMECOMMANDENGINE_STRING_HPP_
+#ifndef ASI_RUNTIMECOMMANDENGINE_STRING_HPP
+#define ASI_RUNTIMECOMMANDENGINE_STRING_HPP
 
 #include "ParameterAbstract.hpp"
 
@@ -24,4 +24,4 @@ protected:
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //_ASI_RUNTIMECOMMANDENGINE_STRING_HPP_
+#endif //ASI_RUNTIMECOMMANDENGINE_STRING_HPP

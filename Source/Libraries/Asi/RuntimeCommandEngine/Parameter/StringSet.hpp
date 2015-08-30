@@ -1,5 +1,5 @@
-#ifndef _ASI_RUNTIMECOMMANDENGINE_STRINGSET_HPP_
-#define _ASI_RUNTIMECOMMANDENGINE_STRINGSET_HPP_
+#ifndef ASI_RUNTIMECOMMANDENGINE_STRINGSET_HPP
+#define ASI_RUNTIMECOMMANDENGINE_STRINGSET_HPP
 
 #include "ParameterAbstract.hpp"
 #include <string>
@@ -33,4 +33,4 @@ private:
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //_ASI_RUNTIMECOMMANDENGINE_STRINGSET_HPP_
+#endif //ASI_RUNTIMECOMMANDENGINE_STRINGSET_HPP

@@ -1,5 +1,5 @@
-#ifndef _ASI_RUNTIMECOMMANDENGINE_TREE_HPP_
-#define _ASI_RUNTIMECOMMANDENGINE_TREE_HPP_
+#ifndef ASI_RUNTIMECOMMANDENGINE_TREE_HPP
+#define ASI_RUNTIMECOMMANDENGINE_TREE_HPP
 
 #include <vector>
 #include "CommandInterface.hpp"
@@ -49,4 +49,4 @@ private:
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //_ASI_RUNTIMECOMMANDENGINE_TREE_HPP_
+#endif //ASI_RUNTIMECOMMANDENGINE_TREE_HPP

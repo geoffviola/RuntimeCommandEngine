@@ -1,4 +1,5 @@
 option(BUILD_UNIT_TESTS "Build and run unit tests" OFF)
+option(BUILD_EXAMPLES "Build example programs" OFF)
 
 #Set MT for gtest
 if(MSVC)
@@ -41,7 +42,7 @@ if(MSVC)
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	add_definitions("-Wall -Wno-long-long -pedantic")
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-	add_definitions("-Weverything")
+	add_definitions("-Weverything -Wno-c++11-extension")
 endif()
 
 #Add flags for C++14 features
@@ -67,4 +68,6 @@ function(setup_unit_test test_name test_file)
 endfunction ()
 
 add_subdirectory(Libraries)
-add_subdirectory(Executables)
+if (BUILD_EXAMPLES)
+	add_subdirectory(Executables)
+endif ()

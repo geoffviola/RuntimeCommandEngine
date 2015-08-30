@@ -1,1 +1,1 @@
-cmake ../.. -G "Visual Studio 14 2015" -DBUILD_UNIT_TESTS=ON
+cmake ../.. -G "Visual Studio 14 2015" -DBUILD_UNIT_TESTS=ON -DBUILD_EXAMPLES=ON

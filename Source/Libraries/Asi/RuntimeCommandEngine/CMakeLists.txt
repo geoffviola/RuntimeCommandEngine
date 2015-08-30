@@ -8,11 +8,9 @@ set(ROOT_HEADERS
 	CommandWithoutParams.hpp
 	CommandWithGenericParams.hpp
 	CommandWithParams.hpp
-	EvaluatorInterface.hpp
 	MakeCommand.hpp
 	StringUtils.hpp
 	Tree.hpp
-	TreeFactoryAbstract.hpp
 )
 set(PARAMETER_SOURCES
 	Parameter/Percentage.cpp

@@ -1,5 +1,5 @@
-#ifndef _ASI_RUNTIMECOMMANDENGINE_MAKECOMMAND_HPP_
-#define _ASI_RUNTIMECOMMANDENGINE_MAKECOMMAND_HPP_
+#ifndef ASI_RUNTIMECOMMANDENGINE_MAKECOMMAND_HPP
+#define ASI_RUNTIMECOMMANDENGINE_MAKECOMMAND_HPP
 
 #include "CommandWithoutParams.hpp"
 #include "CommandWithParams.hpp"
@@ -32,4 +32,4 @@ MakeCommand(std::vector<std::string> const &in_signature, std::string const &in_
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //_ASI_RUNTIMECOMMANDENGINE_TREEFACTORYABSTRACT_HPP_
+#endif //ASI_RUNTIMECOMMANDENGINE_MAKECOMMAND_HPP
