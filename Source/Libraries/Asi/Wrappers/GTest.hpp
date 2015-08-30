@@ -3,8 +3,8 @@
 
 #ifdef __GNUC__
 #pragma GCC diagnostic ignored "-Wconversion-null"
-#elif __clang__
-#pragma message "warning"
+#elif defined(__clang__)
+#pragma message "clang is detected"
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wused-but-marked-unused"
 #pragma clang diagnostic ignored "-Wdeprecated"
