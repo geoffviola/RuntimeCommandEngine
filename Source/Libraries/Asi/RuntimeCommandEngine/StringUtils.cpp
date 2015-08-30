@@ -5,6 +5,9 @@
 #include <cmath>
 #include <limits>
 
+using std::fmod;
+using std::fabs;
+
 namespace asi
 {
 namespace runtimecommandengine
@@ -48,10 +51,10 @@ std::string prettyPrint(double const value)
 {
 	std::stringstream ss;
 	ss.precision(1);
-	if ((0.00001 < value || -0.00001 > value) && std::fmod(4 * (abs(value) / M_PI), 1.0) < 0.00000001)
+	if ((0.00001 < value || -0.00001 > value) && fmod(4 * (fabs(value) / M_PI), 1.0) < 0.00000001)
 	{
 		ss << std::fixed;
-		if (abs(abs(value) - M_PI) > 0.00000001)
+		if (fabs(fabs(value) - M_PI) > 0.00000001)
 		{
 			ss << (value) / M_PI << "*";
 		}
@@ -61,7 +64,7 @@ std::string prettyPrint(double const value)
 		}
 		ss << "pi";
 	}
-	else if (abs(value) >= 1000 || std::numeric_limits<double>::min() == value)
+	else if (fabs(value) >= 1000 || std::numeric_limits<double>::min() == value)
 	{
 		ss << std::scientific;
 		ss << value;
