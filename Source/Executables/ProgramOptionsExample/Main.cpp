@@ -11,6 +11,10 @@ using asi::runtimecommandengine::MakeCommand;
 using asi::runtimecommandengine::CommandInterface;
 using asi::runtimecommandengine::Tree;
 
+void add(int32_t const a, int32_t const b);
+void increment(int32_t const a);
+void help(Tree const* const tree);
+
 void add(int32_t const a, int32_t const b) { printf("%d + %d = %d\n", a, b, a + b); }
 void increment(int32_t const a) { printf("%d + 1 = %d\n", a, a + 1); }
 void help(Tree const* const tree) { printf("%s", tree->GetHelp().c_str()); }
@@ -36,7 +40,7 @@ int main(int argc, char *args[])
 
 	// Load tokens
 	std::vector<std::string> tokens;
-	tokens.reserve(argc);
+	tokens.reserve(static_cast<std::vector<std::string>::size_type>(argc));
 	for (int i = 1; i < argc; ++i)
 	{
 		tokens.push_back(args[i]);

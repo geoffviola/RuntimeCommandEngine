@@ -35,7 +35,7 @@ bool isInteger(std::string const &s);
 
 bool isDouble(std::string const &s);
 
-template <class T> inline bool isStringOfType(std::string const &input_string)
+template <class T> inline bool isStringOfType(std::string const &)
 {
 	throw "isStringIsOfType: unimplemented";
 }

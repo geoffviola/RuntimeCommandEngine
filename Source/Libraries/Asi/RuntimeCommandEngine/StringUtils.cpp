@@ -26,22 +26,14 @@ std::string replaceSubstringWithSubstring(std::string const &base, std::string c
 {
 	std::string output(base);
 
-	size_t index = 0;
-	for (;;)
+	for (size_t index = output.find(replacee, index); std::string::npos != index;)
 	{
-		/* Locate the substring to replace. */
-		index = output.find(replacee, index);
-		if (index == std::string::npos)
-		{
-			break;
-		}
-
 		/* Make the replacement. */
 		output.replace(index, replacee.size(), replacer);
 
-		/* Advance index forward so the next iteration
-		doesn't pick it up as well. */
+		/* Locate the substring to replace. */
 		index += replacer.size();
+		index = output.find(replacee, index);
 	}
 
 	return output;
@@ -64,7 +56,7 @@ std::string prettyPrint(double const value)
 		}
 		ss << "pi";
 	}
-	else if (fabs(value) >= 1000 || std::numeric_limits<double>::min() == value)
+	else if (fabs(value) >= 1000.0)
 	{
 		ss << std::scientific;
 		ss << value;

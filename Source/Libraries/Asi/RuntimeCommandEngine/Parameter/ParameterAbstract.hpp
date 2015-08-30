@@ -22,6 +22,7 @@ public:
 	}
 	virtual ~ParameterAbstract() {}
 
+	ParameterAbstract(ParameterAbstract const&) = default;
 	/// Get a string describing the expected input string value
 	std::string GetExpectedDomain() const { return GetExpectedDomainImpl(); }
 	/// Get a vector of strings describing the expected input string value

@@ -20,7 +20,8 @@ public:
 	                  CallFunType const &callback, ParamTypes const &... typed_parameter)
 	    : callbackFunction(callback)
 	    , typedParameters(typed_parameter...)
-	    , genericParameters(TupleToPointerArray(&typedParameters, std::make_index_sequence<sizeof...(ParamTypes)>{}))
+	    , genericParameters(
+	          TupleToPointerArray(&typedParameters, std::make_index_sequence<sizeof...(ParamTypes)>{}))
 	    , cmdGenericParams(in_signature, in_description,
 	                       std::bind(&CommandWithParams<ParamTypes...>::CallFunction, this, std::placeholders::_1),
 	                       &genericParameters[0], sizeof...(ParamTypes))
@@ -32,7 +33,7 @@ private:
 	static auto TupleToPointerArray(std::tuple<ParamTypes...> *const t, std::index_sequence<Indices...> indices)
 	{
 		return std::array<parameter::ParameterAbstract *, sizeof...(ParamTypes)>{
-		    static_cast<parameter::ParameterAbstract *>(&std::get<Indices>(*t))...};
+		    {static_cast<parameter::ParameterAbstract *>(&std::get<Indices>(*t))...}};
 	}
 
 	inline std::tuple<bool, uint32_t, std::string>
@@ -60,8 +61,8 @@ private:
 
 	inline void CallFunction(std::vector<std::string> const &tokens) const
 	{
-		std::vector<std::string> param_only_tokens(tokens.begin() + cmdGenericParams.GetMethodName().size(),
-		                                           tokens.end());
+		std::vector<std::string> param_only_tokens(
+		    tokens.begin() + static_cast<signed>(cmdGenericParams.GetMethodName().size()), tokens.end());
 		auto const param_indices = std::make_index_sequence<sizeof...(ParamTypes)>{};
 		CallFunctionHelper(param_only_tokens, param_indices);
 	}
@@ -75,4 +76,4 @@ private:
 } // namespace runtimecommandengine
 } // namespace asi
 
-#endif //ASI_RUNTIMECOMMANDENGINE_COMMANDWITHPARAMS_HPP
+#endif // ASI_RUNTIMECOMMANDENGINE_COMMANDWITHPARAMS_HPP

@@ -4,6 +4,7 @@
 #ifdef __GNUC__
 #pragma GCC diagnostic ignored "-Wconversion-null"
 #elif __clang__
+#pragma message "warning"
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wused-but-marked-unused"
 #pragma clang diagnostic ignored "-Wdeprecated"

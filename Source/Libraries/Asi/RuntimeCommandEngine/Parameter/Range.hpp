@@ -67,7 +67,7 @@ protected:
 	}
 
 private:
-	Range &operator=(Range const &tmp);
+	Range &operator=(Range const &tmp) = delete;
 
 	T const min;
 	T const max;
