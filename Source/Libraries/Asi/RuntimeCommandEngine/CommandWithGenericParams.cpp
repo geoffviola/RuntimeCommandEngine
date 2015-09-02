@@ -44,16 +44,16 @@ CommandWithGenericParams::EvaluateImpl(std::vector<std::string> const &tokens) c
 	std::get<1>(output) = last_good_index_p1;
 	if (true == std::get<0>(cwp_atis))
 	{
-		bool match = last_good_index_p1 != tokens.size();
+		bool match = last_good_index_p1 != static_cast<int32_t>(tokens.size());
 		int32_t potential_good_index = last_good_index_p1 + 1;
-		for (; (potential_good_index < tokens.size()) &&
+		for (; (potential_good_index < static_cast<int32_t>(tokens.size())) &&
 		       (potential_good_index - commandWithoutParams.GetSignatureLength() < genericParameters.size()) &&
 		       genericParameters[potential_good_index - commandWithoutParams.GetSignatureLength()]
 		           ->IsInExpectedDomain(tokens[potential_good_index]);
 		     ++potential_good_index)
 		{
 		}
-		match = potential_good_index == tokens.size();
+		match = potential_good_index == static_cast<int32_t>(tokens.size());
 		match =
 		    match && (tokens.size() == commandWithoutParams.GetSignatureLength() + genericParameters.size());
 		last_good_index_p1 = potential_good_index - 1;
