@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <vector>
 #include <string>
+#include <iterator>
 
 #include "Asi/RuntimeCommandEngine/Tree.hpp"
 #include "Asi/RuntimeCommandEngine/MakeCommand.hpp"

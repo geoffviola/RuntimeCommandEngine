@@ -17,6 +17,7 @@ class Tree
 {
 public:
 	explicit Tree(std::vector<CommandInterface *> const &in_commands);
+	Tree(Tree const&) = default;
 	virtual ~Tree();
 
 	void AddCommands(Tree const &other_tree);
