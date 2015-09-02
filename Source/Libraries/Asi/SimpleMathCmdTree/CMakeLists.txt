@@ -1,1 +1,3 @@
 add_library(SimpleMathCmdTree Tree.hpp Tree.cpp)
+target_link_libraries(SimpleMathCmdTree SimpleMath)
+target_link_libraries(SimpleMathCmdTree RuntimeCommandEngine)

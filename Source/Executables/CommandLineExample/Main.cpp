@@ -24,7 +24,7 @@ void help(Tree const *const tree);
 void exit_program(bool *const exit) { *exit = true; }
 void help(Tree const *const tree) { printf("%s\n", tree->GetHelp().c_str()); }
 
-int main(int argc, char *args[])
+int main()
 {
 	auto simple_math_cmd_tree = asi::simplemathcmdtree::GetTree();
 	simple_math_cmd_tree.PrependAllCommandSignatures("math");
