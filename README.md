@@ -28,4 +28,7 @@ could return
 See examples for details
 
 <h2> Implementation Details </h2>
-The code is written to follow the C++14 standard. It compiles in MSVC14 2015, clang 3.6, and GCC 5 without warnings. It is currently meant to be incorporated into a project by call add_subdirectory in the Source folder using CMake. Then, linked appropriately.
+The code is written to follow the C++14 standard. It compiles in MSVC14 2015, clang 3.6, and GCC 5 without warnings. 
+
+<h2> Integration </h2>
+It is currently meant to be incorporated into a project from source. After cloning the repository, a CMake script should call \"add_subdirectory\" in the \"Source\" folder. Then, the dependent target must link it and have \"Source/Libraries\" in the include path.
