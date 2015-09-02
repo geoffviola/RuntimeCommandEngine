@@ -21,34 +21,42 @@ CommandWithGenericParams::CommandWithGenericParams(std::vector<std::string> cons
 	}
 }
 
-std::tuple<bool, uint32_t, std::string>
+std::tuple<bool, int32_t, std::string>
 CommandWithGenericParams::EvaluateImpl(std::vector<std::string> const &tokens) const
 {
-	std::tuple<bool, uint32_t, std::string> output(false, 0U, "");
+	std::tuple<bool, int32_t, std::string> output(false, 0, "");
 
 	// Check method names
 	std::vector<std::string> candidate_method_name;
-	if (tokens.size() < commandWithoutParams.GetSignatureLength() || tokens.size() < genericParameters.size())
+	if (tokens.size() <= commandWithoutParams.GetSignatureLength() || tokens.size() < genericParameters.size())
 	{
 		candidate_method_name = tokens;
 	}
 	else
 	{
 		candidate_method_name = std::vector<std::string>(
-		    tokens.begin(), tokens.end() - static_cast<signed>(genericParameters.size()));
+		    tokens.begin(), tokens.begin() + static_cast<signed>(commandWithoutParams.GetSignatureLength()));
 	}
 	auto const cwp_atis = commandWithoutParams.AreTokensInSignature(candidate_method_name);
 
 	// Check parameter domains
-	uint32_t last_good_index_p1 = std::get<1>(cwp_atis);
+	int32_t last_good_index_p1 = std::get<1>(cwp_atis);
+	std::get<1>(output) = last_good_index_p1;
 	if (true == std::get<0>(cwp_atis))
 	{
 		bool match = last_good_index_p1 != tokens.size();
-		for (; last_good_index_p1 < tokens.size() && match; ++last_good_index_p1)
+		int32_t potential_good_index = last_good_index_p1 + 1;
+		for (; (potential_good_index < tokens.size()) &&
+		       (potential_good_index - commandWithoutParams.GetSignatureLength() < genericParameters.size()) &&
+		       genericParameters[potential_good_index - commandWithoutParams.GetSignatureLength()]
+		           ->IsInExpectedDomain(tokens[potential_good_index]);
+		     ++potential_good_index)
 		{
-			match = genericParameters[last_good_index_p1 - commandWithoutParams.GetSignatureLength()]
-			            ->IsInExpectedDomain(tokens[last_good_index_p1]);
 		}
+		match = potential_good_index == tokens.size();
+		match =
+		    match && (tokens.size() == commandWithoutParams.GetSignatureLength() + genericParameters.size());
+		last_good_index_p1 = potential_good_index - 1;
 		std::get<0>(output) = match;
 		std::get<1>(output) = last_good_index_p1;
 		if (match)

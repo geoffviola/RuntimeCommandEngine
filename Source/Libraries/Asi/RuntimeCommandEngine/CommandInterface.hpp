@@ -22,7 +22,7 @@ public:
 	if any token evaluated, the uint32_t is the last good parameter
 	the std::string is for printing
 	*/
-	inline std::tuple<bool, uint32_t, std::string> Evaluate(std::vector<std::string> const &tokens) const
+	inline std::tuple<bool, int32_t, std::string> Evaluate(std::vector<std::string> const &tokens) const
 	{
 		return this->EvaluateImpl(tokens);
 	}
@@ -39,7 +39,7 @@ public:
 protected:
 	CommandInterface() {}
 
-	virtual std::tuple<bool, uint32_t, std::string> EvaluateImpl(std::vector<std::string> const &tokens) const = 0;
+	virtual std::tuple<bool, int32_t, std::string> EvaluateImpl(std::vector<std::string> const &tokens) const = 0;
 	virtual std::vector<std::string> GetMethodNameImpl() const = 0;
 	virtual std::string GetHelpImpl() const = 0;
 	virtual size_t GetSignatureLengthImpl() const = 0;

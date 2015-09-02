@@ -16,18 +16,18 @@ CommandWithoutParams::CommandWithoutParams(std::vector<std::string> const &in_si
 	SelfCheck();
 }
 
-std::tuple<bool, uint32_t> CommandWithoutParams::AreTokensInSignature(std::vector<std::string> tokens) const
+std::tuple<bool, int32_t> CommandWithoutParams::AreTokensInSignature(std::vector<std::string> tokens) const
 {
 	size_t i = 0;
 	for (; i < tokens.size() && i < methodNameTokens.size() && iequals(tokens[i], methodNameTokens[i]); ++i)
 	{
 	}
-	return std::tuple<bool, uint32_t>(methodNameTokens.size() == i && tokens.size() == i, i);
+	return std::tuple<bool, int32_t>(methodNameTokens.size() == i && tokens.size() == i, static_cast<int>(i) - 1);
 }
 
-std::tuple<bool, uint32_t, std::string> CommandWithoutParams::EvaluateImpl(std::vector<std::string> const &tokens) const
+std::tuple<bool, int32_t, std::string> CommandWithoutParams::EvaluateImpl(std::vector<std::string> const &tokens) const
 {
-	std::tuple<bool, uint32_t, std::string> output;
+	std::tuple<bool, int32_t, std::string> output;
 
 	auto const are_tokens_in_sig(AreTokensInSignature(tokens));
 

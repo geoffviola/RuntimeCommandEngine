@@ -78,7 +78,7 @@ private:
 	T *const pa;
 };
 
-TEST(CommandTests, Evaluate_1ParamRightTokens_CallbackCalledTrue2UCorrectString)
+TEST(CommandTests, Evaluate_1ParamRightTokens_CallbackCalledTrue1CorrectString)
 {
 	static string const method_name("sig1");
 	static string const parameter_name("param1");
@@ -98,12 +98,33 @@ TEST(CommandTests, Evaluate_1ParamRightTokens_CallbackCalledTrue2UCorrectString)
 	auto const return_val = cmd.Evaluate(input_tokens);
 
 	EXPECT_EQ(true, std::get<0>(return_val));
-	EXPECT_EQ(2U, std::get<1>(return_val));
+	EXPECT_EQ(1, std::get<1>(return_val));
 	EXPECT_STREQ("received command \"sig1 param1\"", std::get<2>(return_val).c_str());
 	EXPECT_EQ(true, cbt.WasCallbackCalled());
 }
 
-TEST(CommandTests, Evaluate_1ParamWrongParamToken_CallbackCalledTrue2UCorrectString)
+TEST(CommandTests, Evaluate_1ParamOnSigTokens_CallbackCalledFalse0CorrectString)
+{
+	static string const method_name("sig1");
+	static string const parameter_name("param1");
+	CallbackTesterWithParams<int32_t> cbt;
+	ConcreteParameterMock<int32_t> pa1(parameter_name);
+	ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > paw(&pa1);
+	CommandWithParams<ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > > cmd({method_name}, "description",
+	                                                                                  cbt.GetCallback(), paw);
+	vector<string> input_tokens;
+	input_tokens.push_back(method_name);
+	CallbackTester ct;
+
+	auto const return_val = cmd.Evaluate(input_tokens);
+
+	EXPECT_EQ(false, std::get<0>(return_val));
+	EXPECT_EQ(0, std::get<1>(return_val));
+	EXPECT_STREQ("", std::get<2>(return_val).c_str());
+	EXPECT_EQ(false, cbt.WasCallbackCalled());
+}
+
+TEST(CommandTests, Evaluate_1ParamWrongParamToken_CallbackCalledFalse0CorrectString)
 {
 	static string const method_name("sig1");
 	static string const parameter_name("param1");
@@ -123,12 +144,134 @@ TEST(CommandTests, Evaluate_1ParamWrongParamToken_CallbackCalledTrue2UCorrectStr
 	auto const return_val = cmd.Evaluate(input_tokens);
 
 	EXPECT_EQ(false, std::get<0>(return_val));
-	EXPECT_EQ(2U, std::get<1>(return_val));
+	EXPECT_EQ(0, std::get<1>(return_val));
 	EXPECT_STREQ("", std::get<2>(return_val).c_str());
 	EXPECT_EQ(false, cbt.WasCallbackCalled());
 }
 
-TEST(CommandTests, Evaluate_2ParamRightTokens_CallbackCalledTrue2UCorrectString)
+TEST(CommandTests, Evaluate_2ParamRightSig1WrongParamToken_CallbackCalledFalse0CorrectString)
+{
+	static string const method_name("sig1");
+	static string const parameter_name_1("param_1");
+	static string const parameter_name_2("param_2");
+	static string const not_parameter_name_1("not_param_1");
+	CallbackTesterWithParams<int32_t, int32_t> cbt;
+	ConcreteParameterMock<int32_t> pa_1(parameter_name_1);
+	ConcreteParameterMock<int32_t> pa_2(parameter_name_2);
+	ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > paw_1(&pa_1);
+	ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > paw_2(&pa_2);
+	CommandWithParams<ParameterAbstractWrapper<ConcreteParameterMock<int32_t> >,
+	                  ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > > cmd({method_name}, "description",
+	                                                                                  cbt.GetCallback(), paw_1,
+	                                                                                  paw_2);
+	vector<string> input_tokens;
+	input_tokens.push_back(method_name);
+	input_tokens.push_back(not_parameter_name_1);
+	CallbackTester ct;
+
+	EXPECT_CALL(pa_1, IsInExpectedDomainMock(not_parameter_name_1)).WillOnce(Return(false));
+
+	auto const return_val = cmd.Evaluate(input_tokens);
+
+	EXPECT_EQ(false, std::get<0>(return_val));
+	EXPECT_EQ(0, std::get<1>(return_val));
+	EXPECT_STREQ("", std::get<2>(return_val).c_str());
+	EXPECT_EQ(false, cbt.WasCallbackCalled());
+}
+
+TEST(CommandTests, Evaluate_2ParamRightSig1RightParamToken_CallbackCalledFalse1CorrectString)
+{
+	static string const method_name("sig1");
+	static string const parameter_name_1("param_1");
+	static string const parameter_name_2("param_2");
+	CallbackTesterWithParams<int32_t, int32_t> cbt;
+	ConcreteParameterMock<int32_t> pa_1(parameter_name_1);
+	ConcreteParameterMock<int32_t> pa_2(parameter_name_2);
+	ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > paw_1(&pa_1);
+	ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > paw_2(&pa_2);
+	CommandWithParams<ParameterAbstractWrapper<ConcreteParameterMock<int32_t> >,
+		ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > > cmd({ method_name }, "description",
+			cbt.GetCallback(), paw_1,
+			paw_2);
+	vector<string> input_tokens;
+	input_tokens.push_back(method_name);
+	input_tokens.push_back(parameter_name_1);
+	CallbackTester ct;
+
+	EXPECT_CALL(pa_1, IsInExpectedDomainMock(parameter_name_1)).WillOnce(Return(true));
+
+	auto const return_val = cmd.Evaluate(input_tokens);
+
+	EXPECT_EQ(false, std::get<0>(return_val));
+	EXPECT_EQ(1, std::get<1>(return_val));
+	EXPECT_STREQ("", std::get<2>(return_val).c_str());
+	EXPECT_EQ(false, cbt.WasCallbackCalled());
+}
+
+TEST(CommandTests, Evaluate_2Param1RightToken1WrongToken_CallbackCalledFalse1CorrectString)
+{
+	static string const method_name("sig1");
+	static string const parameter_name_1("param_1");
+	static string const parameter_name_2("param_2");
+	CallbackTesterWithParams<int32_t, int32_t> cbt;
+	ConcreteParameterMock<int32_t> pa_1(parameter_name_1);
+	ConcreteParameterMock<int32_t> pa_2(parameter_name_2);
+	ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > paw_1(&pa_1);
+	ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > paw_2(&pa_2);
+	CommandWithParams<ParameterAbstractWrapper<ConcreteParameterMock<int32_t> >,
+		ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > > cmd({ method_name }, "description",
+			cbt.GetCallback(), paw_1,
+			paw_2);
+	vector<string> input_tokens;
+	input_tokens.push_back(method_name);
+	input_tokens.push_back(parameter_name_1);
+	input_tokens.push_back(parameter_name_2);
+	CallbackTester ct;
+
+	EXPECT_CALL(pa_1, IsInExpectedDomainMock(parameter_name_1)).WillOnce(Return(true));
+	EXPECT_CALL(pa_2, IsInExpectedDomainMock(parameter_name_2)).WillOnce(Return(false));
+
+	auto const return_val = cmd.Evaluate(input_tokens);
+
+	EXPECT_EQ(false, std::get<0>(return_val));
+	EXPECT_EQ(1, std::get<1>(return_val));
+	EXPECT_STREQ("", std::get<2>(return_val).c_str());
+	EXPECT_EQ(false, cbt.WasCallbackCalled());
+}
+
+TEST(CommandTests, Evaluate_2Param2RightTokens1ExtraToken_CallbackCalledFalse3CorrectString)
+{
+	static string const method_name("sig1");
+	static string const parameter_name_1("param_1");
+	static string const parameter_name_2("param_2");
+	CallbackTesterWithParams<int32_t, int32_t> cbt;
+	ConcreteParameterMock<int32_t> pa_1(parameter_name_1);
+	ConcreteParameterMock<int32_t> pa_2(parameter_name_2);
+	ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > paw_1(&pa_1);
+	ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > paw_2(&pa_2);
+	CommandWithParams<ParameterAbstractWrapper<ConcreteParameterMock<int32_t> >,
+		ParameterAbstractWrapper<ConcreteParameterMock<int32_t> > > cmd({ method_name }, "description",
+			cbt.GetCallback(), paw_1,
+			paw_2);
+	vector<string> input_tokens;
+	input_tokens.push_back(method_name);
+	input_tokens.push_back(parameter_name_1);
+	input_tokens.push_back(parameter_name_2);
+	input_tokens.push_back("extra_token");
+	CallbackTester ct;
+
+	EXPECT_CALL(pa_1, IsInExpectedDomainMock(parameter_name_1)).WillOnce(Return(true));
+	EXPECT_CALL(pa_2, IsInExpectedDomainMock(parameter_name_2)).WillOnce(Return(true));
+
+	auto const return_val = cmd.Evaluate(input_tokens);
+
+	EXPECT_EQ(false, std::get<0>(return_val));
+	EXPECT_EQ(2, std::get<1>(return_val));
+	EXPECT_STREQ("", std::get<2>(return_val).c_str());
+	EXPECT_EQ(false, cbt.WasCallbackCalled());
+}
+
+TEST(CommandTests, Evaluate_2ParamRightTokens_CallbackCalledTrue2CorrectString)
 {
 	static string const method_name("sig1");
 	static string const parameter_name_1("param_1");
@@ -156,7 +299,7 @@ TEST(CommandTests, Evaluate_2ParamRightTokens_CallbackCalledTrue2UCorrectString)
 	auto const return_val = cmd.Evaluate(input_tokens);
 
 	EXPECT_EQ(true, std::get<0>(return_val));
-	EXPECT_EQ(3U, std::get<1>(return_val));
+	EXPECT_EQ(2, std::get<1>(return_val));
 	EXPECT_STREQ("received command \"sig1 param_1 param_2\"", std::get<2>(return_val).c_str());
 	EXPECT_EQ(true, cbt.WasCallbackCalled());
 }

@@ -23,11 +23,11 @@ public:
 	        @return bool are the tokens in the signature
 	                uint32_t the index that was matched to
 	*/
-	std::tuple<bool, uint32_t> AreTokensInSignature(std::vector<std::string> tokens) const;
+	std::tuple<bool, int32_t> AreTokensInSignature(std::vector<std::string> tokens) const;
 	inline void CallFun(std::vector<std::string> const &tokens) const { callFun(tokens); }
 
 private:
-	std::tuple<bool, uint32_t, std::string> EvaluateImpl(std::vector<std::string> const &tokens) const override;
+	std::tuple<bool, int32_t, std::string> EvaluateImpl(std::vector<std::string> const &tokens) const override;
 	std::vector<std::string> GetSignatureExpectationImpl(size_t const index) const override;
 	size_t GetSignatureLengthImpl() const override { return methodNameTokens.size(); }
 	std::vector<std::string> GetMethodNameImpl() const override { return methodNameTokens; }

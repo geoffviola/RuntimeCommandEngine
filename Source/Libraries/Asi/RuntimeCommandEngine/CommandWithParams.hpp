@@ -36,7 +36,7 @@ private:
 		    {static_cast<parameter::ParameterAbstract *>(&std::get<Indices>(*t))...}};
 	}
 
-	inline std::tuple<bool, uint32_t, std::string>
+	inline std::tuple<bool, int32_t, std::string>
 	EvaluateImpl(std::vector<std::string> const &tokens) const override
 	{
 		return cmdGenericParams.Evaluate(tokens);

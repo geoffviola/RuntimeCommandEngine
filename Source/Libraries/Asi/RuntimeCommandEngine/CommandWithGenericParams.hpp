@@ -23,7 +23,7 @@ public:
 	                         int num_params);
 
 private:
-	std::tuple<bool, uint32_t, std::string> EvaluateImpl(std::vector<std::string> const &tokens) const override;
+	std::tuple<bool, int32_t, std::string> EvaluateImpl(std::vector<std::string> const &tokens) const override;
 	std::vector<std::string> GetSignatureExpectationImpl(size_t const index) const override;
 	size_t GetSignatureLengthImpl() const override;
 	std::vector<std::string> GetMethodNameImpl() const override { return commandWithoutParams.GetMethodName(); }

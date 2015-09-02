@@ -18,7 +18,7 @@ using testing::Return;
 class CommandMock : public asi::runtimecommandengine::CommandInterface
 {
 public:
-	MOCK_CONST_METHOD1(EvaluateImpl, std::tuple<bool, uint32_t, std::string>(std::vector<std::string> const &));
+	MOCK_CONST_METHOD1(EvaluateImpl, std::tuple<bool, int32_t, std::string>(std::vector<std::string> const &));
 	MOCK_CONST_METHOD0(GetMethodNameImpl, std::vector<std::string>(void));
 	MOCK_CONST_METHOD0(GetHelpImpl, std::string(void));
 	MOCK_CONST_METHOD0(GetSignatureLengthImpl, size_t(void));
@@ -57,14 +57,17 @@ TEST_F(TreeTests, Evaluate_OneCommandNoTokens_ReturnFalse)
 	CommandMock cmd;
 	Tree t({&cmd});
 
-	static std::tuple<bool, uint32_t, std::string> const cmd_return_val(false, 0, "");
+	static std::tuple<bool, int32_t, std::string> const cmd_return_val(false, -1, "");
 	EXPECT_CALL(cmd, EvaluateImpl(tokens)).WillOnce(testing::Return(cmd_return_val));
-	EXPECT_CALL(cmd, GetSignatureLengthImpl()).WillRepeatedly(testing::Return(0));
+	EXPECT_CALL(cmd, GetSignatureLengthImpl()).WillRepeatedly(testing::Return(1));
+	static std::vector<std::string> const cmd_sig_exp{ "a" };
+	EXPECT_CALL(cmd, GetSignatureExpectationImpl(std::get<1>(cmd_return_val) + 1))
+		.WillOnce(testing::Return(cmd_sig_exp));
 
 	auto const result = t.Evaluate(tokens);
 
 	EXPECT_EQ(false, std::get<0>(result));
-	EXPECT_STREQ("No tokens received", std::get<1>(result).c_str());
+	EXPECT_STREQ("No tokens received. Expected: a", std::get<1>(result).c_str());
 }
 
 TEST_F(TreeTests, Evaluate_OneCommandOneNonMatchingToken_ReturnFalse)
@@ -74,17 +77,17 @@ TEST_F(TreeTests, Evaluate_OneCommandOneNonMatchingToken_ReturnFalse)
 	CommandMock cmd;
 	Tree t({&cmd});
 
-	static std::tuple<bool, uint32_t, std::string> const cmd_return_val(false, 0, "");
+	static std::tuple<bool, int32_t, std::string> const cmd_return_val(false, -1, "");
 	EXPECT_CALL(cmd, EvaluateImpl(tokens)).WillOnce(testing::Return(cmd_return_val));
 	EXPECT_CALL(cmd, GetSignatureLengthImpl()).WillRepeatedly(testing::Return(1));
 	static std::vector<std::string> const cmd_sig_exp{"a"};
-	EXPECT_CALL(cmd, GetSignatureExpectationImpl(std::get<1>(cmd_return_val)))
+	EXPECT_CALL(cmd, GetSignatureExpectationImpl(std::get<1>(cmd_return_val) + 1))
 	    .WillOnce(testing::Return(cmd_sig_exp));
 
 	auto const result = t.Evaluate(tokens);
 
 	EXPECT_EQ(false, std::get<0>(result));
-	EXPECT_STREQ("Unknown token \"one\". expected: a", std::get<1>(result).c_str());
+	EXPECT_STREQ("Bad token \"one\". Expected: a", std::get<1>(result).c_str());
 }
 
 TEST_F(TreeTests, Evaluate_OneCommandOneMatchingToken_ReturnTrue)
@@ -95,7 +98,7 @@ TEST_F(TreeTests, Evaluate_OneCommandOneMatchingToken_ReturnTrue)
 	CommandMock cmd;
 	Tree t({&cmd});
 
-	static std::tuple<bool, uint32_t, std::string> const cmd_return_val(true, 0, "");
+	static std::tuple<bool, int32_t, std::string> const cmd_return_val(true, 0, "");
 	EXPECT_CALL(cmd, EvaluateImpl(tokens)).WillOnce(testing::Return(cmd_return_val));
 
 	auto const result = t.Evaluate(tokens);
@@ -110,11 +113,11 @@ TEST_F(TreeTests, Evaluate_OneCommandOneMatchingTokenButNeedsTwo_ReturnFalse)
 	CommandMock cmd;
 	Tree t({&cmd});
 
-	static std::tuple<bool, uint32_t, std::string> const cmd_return_val(false, 1, "");
+	static std::tuple<bool, int32_t, std::string> const cmd_return_val(false, 0, "");
 	EXPECT_CALL(cmd, EvaluateImpl(tokens)).WillOnce(testing::Return(cmd_return_val));
 	EXPECT_CALL(cmd, GetSignatureLengthImpl()).WillRepeatedly(testing::Return(2));
 	static std::vector<std::string> const cmd_sig_exp{"two"};
-	EXPECT_CALL(cmd, GetSignatureExpectationImpl(std::get<1>(cmd_return_val)))
+	EXPECT_CALL(cmd, GetSignatureExpectationImpl(std::get<1>(cmd_return_val) + 1))
 	    .WillOnce(testing::Return(cmd_sig_exp));
 
 	auto const result = t.Evaluate(tokens);
@@ -131,12 +134,10 @@ TEST_F(TreeTests, Evaluate_OneCommandOneMatchingTokenOneExtraToken_ReturnFalse)
 	CommandMock cmd;
 	Tree t({&cmd});
 
-	static std::tuple<bool, uint32_t, std::string> const cmd_return_val(false, 0, "");
+	static std::tuple<bool, int32_t, std::string> const cmd_return_val(false, 0, "");
 	EXPECT_CALL(cmd, EvaluateImpl(tokens)).WillOnce(testing::Return(cmd_return_val));
 	EXPECT_CALL(cmd, GetSignatureLengthImpl()).WillRepeatedly(testing::Return(1));
 	static std::vector<std::string> const cmd_sig_exp{"one"};
-	EXPECT_CALL(cmd, GetSignatureExpectationImpl(std::get<1>(cmd_return_val)))
-	    .WillOnce(testing::Return(cmd_sig_exp));
 
 	auto const result = t.Evaluate(tokens);
 
@@ -152,9 +153,9 @@ TEST_F(TreeTests, Evaluate_TwoCommandsOneMatchingToken_ReturnTrue)
 	CommandMock cmd2;
 	Tree t({&cmd1, &cmd2});
 
-	static std::tuple<bool, uint32_t, std::string> const cmd1_return_val(true, 0, "");
+	static std::tuple<bool, int32_t, std::string> const cmd1_return_val(true, 0, "");
 	EXPECT_CALL(cmd1, EvaluateImpl(tokens)).WillOnce(testing::Return(cmd1_return_val));
-	static std::tuple<bool, uint32_t, std::string> const cmd2_return_val(false, 0, "");
+	static std::tuple<bool, int32_t, std::string> const cmd2_return_val(false, 0, "");
 	EXPECT_CALL(cmd2, EvaluateImpl(tokens)).WillOnce(testing::Return(cmd2_return_val));
 
 	auto const result = t.Evaluate(tokens);

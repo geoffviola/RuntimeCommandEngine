@@ -38,7 +38,7 @@ TEST(CommandWithoutParamsTests, Evaluate_NoParamsWrongToken_FalseUDUD)
 	EXPECT_EQ(false, cbt.WasCallbackCalled());
 }
 
-TEST(CommandWithoutParamsTests, Evaluate_NoParamsRightToken_CallbackCalledTrue1UCorrectString)
+TEST(CommandWithoutParamsTests, Evaluate_NoParamsRightToken_CallbackCalledTrue0CorrectString)
 {
 	static string const method_name("sig1");
 	CallbackTester cbt;
@@ -50,7 +50,7 @@ TEST(CommandWithoutParamsTests, Evaluate_NoParamsRightToken_CallbackCalledTrue1U
 	auto const return_val = cmd.Evaluate(input_tokens);
 
 	EXPECT_EQ(true, std::get<0>(return_val));
-	EXPECT_EQ(1U, std::get<1>(return_val));
+	EXPECT_EQ(0, std::get<1>(return_val));
 	EXPECT_STREQ(string("received command \"" + method_name + "\"").c_str(), std::get<2>(return_val).c_str());
 	EXPECT_EQ(true, cbt.WasCallbackCalled());
 }

@@ -1,3 +1,7 @@
+/**
+        Simplest example with various numbers of parameters being used
+*/
+
 #include <stdlib.h>
 #include <vector>
 #include <string>

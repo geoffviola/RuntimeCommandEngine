@@ -48,17 +48,17 @@ std::tuple<bool, std::string> Tree::Evaluate(std::vector<std::string> const &tok
 {
 	std::tuple<bool, std::string> output(false, "");
 	std::vector<CommandInterface *> closest_commands;
-	uint32_t highest_index = 0U;
+	int32_t highest_index = -1;
 	for (uint32_t i = 0U; i < commands.size(); ++i)
 	{
-		std::tuple<bool, uint32_t, std::string> command_return = commands[i]->Evaluate(tokens);
+		auto const command_return = commands[i]->Evaluate(tokens);
 		if (std::get<0>(command_return))
 		{
 			std::get<0>(output) = true;
 		}
 		else
 		{
-			uint32_t const command_index = std::get<1>(command_return);
+			int32_t const command_index = std::get<1>(command_return);
 			if (command_index > highest_index)
 			{
 				closest_commands.clear();
@@ -95,16 +95,17 @@ std::string Tree::GetHelp() const
 
 std::string Tree::HandleErrors(std::vector<std::string> const &tokens,
                                std::vector<CommandInterface *> const &closest_commands,
-                               uint32_t const highest_index) const
+                               int32_t const highest_index) const
 {
 	std::vector<std::string> item_names;
 	std::string item_names_serialized;
-	for (uint32_t i = 0; i < closest_commands.size() && closest_commands.size(); ++i)
+	size_t const next_index = static_cast<size_t>(highest_index) + 1U;
+	for (uint32_t i = 0U; i < closest_commands.size(); ++i)
 	{
-		if (static_cast<size_t>(highest_index) < closest_commands[i]->GetSignatureLength())
+		if (next_index < closest_commands[i]->GetSignatureLength())
 		{
 			std::vector<std::string> expectedTokens =
-			    closest_commands[i]->GetSignatureExpectation(highest_index);
+			    closest_commands[i]->GetSignatureExpectation(next_index);
 			for (auto expectedToken : expectedTokens)
 			{
 				bool string_is_new =
@@ -123,12 +124,12 @@ std::string Tree::HandleErrors(std::vector<std::string> const &tokens,
 		}
 	}
 
-	return GetErrorDescription(tokens, closest_commands, highest_index, item_names_serialized);
+	return GetErrorDescription(tokens, closest_commands, next_index, item_names_serialized);
 }
 
 std::string Tree::GetErrorDescription(std::vector<std::string> const &tokens,
-                                      std::vector<CommandInterface *> const &closest_commands,
-                                      uint32_t const highest_index, std::string const &item_names_serialized) const
+                                      std::vector<CommandInterface *> const &closest_commands, size_t const next_index,
+                                      std::string const &item_names_serialized) const
 {
 	std::string output;
 	if (0 == closest_commands.size())
@@ -139,20 +140,20 @@ std::string Tree::GetErrorDescription(std::vector<std::string> const &tokens,
 		}
 		else
 		{
-			output = "Unknown token \"" + tokens[highest_index] + "\". Interpreter is empty";
+			output = "Unknown token \"" + tokens[next_index] + "\". Interpreter is empty";
 		}
 	}
 	else if (0 == tokens.size())
 	{
-		output = "No tokens received";
+		output = "No tokens received. Expected: " + item_names_serialized;
 	}
 	else if (tokens.size() > closest_commands[0]->GetSignatureLength())
 	{
 		output = "Unknown extra token \"" + tokens[closest_commands[0]->GetSignatureLength()] + "\"";
 	}
-	else if (tokens.size() != static_cast<size_t>(highest_index))
+	else if (tokens.size() != next_index)
 	{
-		output = "Unknown token \"" + tokens[highest_index] + "\". expected: " + item_names_serialized;
+		output = "Bad token \"" + tokens[next_index] + "\". Expected: " + item_names_serialized;
 	}
 	else
 	{

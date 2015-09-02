@@ -1,1 +1,2 @@
 add_subdirectory(ProgramOptionsExample)
+add_subdirectory(CommandLineExample)
