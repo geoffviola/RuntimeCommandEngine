@@ -89,7 +89,7 @@ std::string Tree::GetHelp() const
 		command_string += "\n" + command->GetHelp();
 	}
 	output += replaceSubstringWithSubstring(command_string, "\n", "\n\t");
-	output += "\nFormat: signature_0 signature_1... signature_n [parameter_0 parameter_1.. parameter_n]";
+	output += "\nFormat: signature_0 signature_1... signature_n [parameter_0 parameter_1... parameter_n]";
 	return output;
 }
 

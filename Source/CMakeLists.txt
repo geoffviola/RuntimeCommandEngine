@@ -1,5 +1,5 @@
-option(BUILD_UNIT_TESTS "Build and run unit tests" OFF)
-option(BUILD_EXAMPLES "Build example programs" OFF)
+option(ASI_RUNTIMECOMMAND_ENGINE_EXTRAS
+	"Build and run unit tests, examples, and integration tests" OFF)
 
 #Set MT for gtest
 if (MSVC)
@@ -79,6 +79,6 @@ function(setup_unit_test test_name test_file)
 endfunction ()
 
 add_subdirectory(Libraries)
-if (BUILD_EXAMPLES)
+if (ASI_RUNTIMECOMMAND_ENGINE_EXTRAS)
 	add_subdirectory(Executables)
 endif ()

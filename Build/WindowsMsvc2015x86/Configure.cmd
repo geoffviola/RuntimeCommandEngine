@@ -1,1 +1,1 @@
-cmake ../.. -G "Visual Studio 14 2015" -DBUILD_UNIT_TESTS=ON -DBUILD_EXAMPLES=ON
+cmake ../.. -G "Visual Studio 14 2015" -DASI_RUNTIMECOMMAND_ENGINE_EXTRAS=ON

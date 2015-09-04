@@ -42,7 +42,7 @@ add_library(RuntimeCommandEngine ${HEADERS} ${SOURCES})
 source_group("" FILES ${ROOT_HEADERS} ${ROOT_SOURCES})
 source_group(Parameter FILES ${PARAMETER_HEADERS} ${PARAMETER_SOURCES})
 
-if (BUILD_UNIT_TESTS)
+if (ASI_RUNTIMECOMMAND_ENGINE_EXTRAS)
 	add_subdirectory(Parameter)
 	add_subdirectory(UnitTests)
 endif ()

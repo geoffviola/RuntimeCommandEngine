@@ -49,8 +49,11 @@ int main(int argc, char *args[])
 	{
 		tokens.push_back(args[i]);
 	}
-
-	tree.Evaluate(tokens);
+	auto const eval_result = tree.Evaluate(tokens);
+	if (!std::get<0>(eval_result))
+	{
+		printf("%s\n", std::get<1>(eval_result).c_str());
+	}
 
 	return EXIT_SUCCESS;
 }
