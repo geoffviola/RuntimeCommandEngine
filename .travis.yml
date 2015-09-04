@@ -27,7 +27,7 @@ deploy:
   provider: releases
   api_key:
     secure: uftutu59dBl8NF8y4u0FwF8fVzq4uGqBJidw1NrdFco54HJOGjvIJ0OUjbu3+vtT1IazQK7tUMhnvzAnHZJE3/p5a+GiSMpHJYPUj7fMLVQ3TyeV4gAs2dW2S1s13zTUgdthgd1kpa4/KMgtQ0roKVoNT4mkXkEqe3PhRs2wxf7aFx6m+OVQm46dn2cqphnd1NGwigkw2vSDfDo/gkk6QeqNAqQ+sE3Y2oAwaNEINNmQFLmSSje/wGDin+Ov2o0s5Izgz5qZqZGnMb6ks6e4jEq7K00BAGTdgBPdGySvvP+RTmMTvqX/YqD2MInGRp3L1m5VrcnJdtVStgMWWQNCwiwG/uKe4LyAeGeyWxcLcWGyGqXRf/wnpiFbFmi7yZ26/jb3rzu47GGsW04zjQWuujaLtt9+F6+9Du7jLlkomOdZ7nzlghbgp1m+PObbJLVNQSL17Z1lNTjyD/s/2XLtEz4Du7JEClRWejl4XsupF62Oy/b1jWosCf+QyJkcQQCvFZR1VLHoqnZXIAhWZGqYei8Xy+trUCd5gu2VRM5uSXuuz/4plAG3LmjP8HhyHNz8eGjd4HofKovPtkzQF4ukBcNL75A22kuccFnkR/yO1LLKtDjyQv1GQFUtd0uPPurAKKGtNAWE/0ueZgxZF7F0JXcf2wd88m68XT2E+/kvdyA=
-  file: traviscitest-0.0.0-Linux.tar.Z
+  file: "*.tar.Z"
   skip_cleanup: true
   on:
     tags: true
