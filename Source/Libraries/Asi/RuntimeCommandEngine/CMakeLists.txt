@@ -39,6 +39,12 @@ set(HEADERS
 
 add_library(RuntimeCommandEngine ${HEADERS} ${SOURCES})
 
+install(FILES ${ROOT_HEADERS} DESTINATION include/Asi/RuntimCommandEngine)
+install(FILES ${PARAMETER_HEADERS}
+	DESTINATION include/Asi/RuntimCommandEngine/Parameter)
+install(TARGETS RuntimeCommandEngine
+	ARCHIVE DESTINATION lib)
+
 source_group("" FILES ${ROOT_HEADERS} ${ROOT_SOURCES})
 source_group(Parameter FILES ${PARAMETER_HEADERS} ${PARAMETER_SOURCES})
 
