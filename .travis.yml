@@ -18,7 +18,7 @@ addons:
     - g++-5
     - clang-3.6
 script:
-- ./cmake-3.3.0-rc4-Linux-x86_64/bin/cmake . -DBUILD_UNIT_TESTS=ON -DBUILD_EXAMPLES=ON
+- ./cmake-3.3.0-rc4-Linux-x86_64/bin/cmake . -DASI_RUNTIMECOMMAND_ENGINE_EXTRAS=ON
 - make -j5
 - ./cmake-3.3.0-rc4-Linux-x86_64/bin/ctest . --output-on-failure
 - ./cmake-3.3.0-rc4-Linux-x86_64/bin/cpack .
