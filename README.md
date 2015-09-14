@@ -2,7 +2,11 @@
 <h2> Overview </h2>
 Library meant to convert sentences into function calls at runtime with support for English error descriptions
 
+Linux 
 [![Build Status](https://travis-ci.org/geoffviola/RuntimeCommandEngine.svg?branch=master)](https://travis-ci.org/geoffviola/RuntimeCommandEngine)
+
+Windows 
+[![Build status](https://ci.appveyor.com/api/projects/status/sewu7060d0mn6v8i/branch/master?svg=true)](https://ci.appveyor.com/project/geoffviola/runtimecommandengine/branch/master)
 
 <h2> Use Cases </h2>
 <h3> Correct Use Case </h3>
