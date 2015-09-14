@@ -22,10 +22,8 @@ build_script:
  - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
  - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\vsvars32.bat"
  - cmd: set CTEST_OUTPUT_ON_FAILURE=1
- - cmd: cmake --version
  - cmd: cd Build
  - cmd: cmake .. -G"%GENERATOR%" -DASI_RUNTIMECOMMAND_ENGINE_EXTRAS=ON
- - cmd: ls
  - cmd: cmake --build . --config %CONFIG%
 
 test_script:
