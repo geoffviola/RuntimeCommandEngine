@@ -39,7 +39,7 @@ public:
 protected:
 	virtual char const *GetTypeNameImpl() const override
 	{
-		static std::string output = std::string("Range<") + std::string(typeid(T).name()) + std::string(">");
+		static std::string output = std::string("Range<") + GetTypeNameGeneric<T>() + std::string(">");
 		return output.c_str();
 	}
 	bool IsInExpectedDomainImpl(std::string const &raw_value) const override
@@ -70,6 +70,22 @@ protected:
 
 private:
 	Range &operator=(Range const &tmp) = delete;
+
+	template<class T1>
+	static inline std::string GetTypeNameGeneric()
+	{
+		return std::string(typeid(T1).name());
+	}
+	template <>
+	static inline std::string GetTypeNameGeneric<int>()
+	{
+		return "int";
+	}
+	template <>
+	static inline std::string GetTypeNameGeneric<double>()
+	{
+		return "double";
+	}
 
 	T const min;
 	T const max;
