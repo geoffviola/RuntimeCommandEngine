@@ -30,5 +30,5 @@ build_script:
  - cmd: cmake --build . --config %CONFIG%
 
 test_script:
- - cmd: ctest -C Debug --output-on-failure
+ - cmd: ctest -C %CONFIG% --output-on-failure
  - cmd: cd ..
