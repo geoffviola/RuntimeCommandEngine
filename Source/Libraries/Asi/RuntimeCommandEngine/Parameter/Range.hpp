@@ -5,7 +5,6 @@
 #include <string>
 #include <sstream>
 #include "Asi/RuntimeCommandEngine/StringUtils.hpp"
-#include <typeinfo>
 
 namespace asi
 {
@@ -70,22 +69,6 @@ protected:
 
 private:
 	Range &operator=(Range const &tmp) = delete;
-
-	template<class T1>
-	static inline std::string GetTypeNameGeneric()
-	{
-		return std::string(typeid(T1).name());
-	}
-	template <>
-	static inline std::string GetTypeNameGeneric<int>()
-	{
-		return "int";
-	}
-	template <>
-	static inline std::string GetTypeNameGeneric<double>()
-	{
-		return "double";
-	}
 
 	T const min;
 	T const max;

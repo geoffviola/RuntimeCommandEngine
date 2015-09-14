@@ -5,6 +5,7 @@
 #include <cassert>
 #include <sstream>
 #include <cstdint>
+#include <typeinfo>
 
 namespace asi
 {
@@ -86,6 +87,24 @@ inline bool isStringOfType<int32_t>(std::string const &input)
 		}
 	}
 	return output;
+}
+
+template<class T>
+inline std::string GetTypeNameGeneric()
+{
+	return std::string(typeid(T).name());
+}
+
+template <>
+inline std::string GetTypeNameGeneric<int>()
+{
+	return "int";
+}
+
+template <>
+inline std::string GetTypeNameGeneric<double>()
+{
+	return "double";
 }
 
 template <>
