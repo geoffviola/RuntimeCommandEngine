@@ -23,7 +23,6 @@ build_script:
  - cmd: call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\vsvars32.bat"
  - cmd: set CTEST_OUTPUT_ON_FAILURE=1
  - cmd: cmake --version
- - cmd: mkdir build
  - cmd: cd build
  - cmd: cmake .. -G"%GENERATOR%"
  - cmd: cmake --build . --config %CONFIG% --target check
